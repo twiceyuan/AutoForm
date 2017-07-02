@@ -8,7 +8,7 @@ import com.twiceyuan.autoform.annotations.FormField;
  * <p>
  * 表单示例
  */
-@Form()
+@Form
 public class DemoForm {
 
     @FormField(label = "姓名", order = 0)

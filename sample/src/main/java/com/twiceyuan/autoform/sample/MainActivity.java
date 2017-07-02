@@ -12,7 +12,6 @@ import com.twiceyuan.autoform.FormManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG      = "AutoForm";
     private static final int MENU_SUBMIT = 1001;
 
     private RecyclerView mForm;

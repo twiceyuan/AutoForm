@@ -39,3 +39,12 @@ Android 表单页面逻辑生成管理工具
     mFormManager.getResult() // 返回 Map<String, Object> 对象
     ```
     
+## 效果示意
+
+1. 默认生成的输入界面
+ 
+![输入界面](art/form.png)
+
+2. 获取输入结果
+
+![获取结果](art/form-result.png)
