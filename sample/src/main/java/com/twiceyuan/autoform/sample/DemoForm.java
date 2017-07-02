@@ -2,6 +2,7 @@ package com.twiceyuan.autoform.sample;
 
 import com.twiceyuan.autoform.annotations.Form;
 import com.twiceyuan.autoform.annotations.FormField;
+import com.twiceyuan.autoform.provider.EmptyValidator;
 
 /**
  * Created by twiceYuan on 2017/7/2.
@@ -23,6 +24,6 @@ public class DemoForm {
     @FormField(label = "公司", order = 3)
     public String company;
 
-    @FormField(label = "备注", order = 4)
+    @FormField(label = "备注", order = 4, validator = EmptyValidator.class)
     public String remark;
 }

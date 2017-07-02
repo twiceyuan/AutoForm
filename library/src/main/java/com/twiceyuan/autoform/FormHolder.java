@@ -27,5 +27,7 @@ public class FormHolder extends RecyclerView.ViewHolder {
                 field.result = result;
             }
         });
+        // 临时绑定
+        field.mItemProvider = mFormItemProvider;
     }
 }

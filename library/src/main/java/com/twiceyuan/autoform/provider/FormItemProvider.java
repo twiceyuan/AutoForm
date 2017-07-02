@@ -20,4 +20,6 @@ public abstract class FormItemProvider {
     public abstract void resultWatcher(ResultWatcher watcher);
 
     public abstract void initView(View view);
+
+    public abstract void onValidate(FormFieldEntity entity);
 }

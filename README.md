@@ -4,7 +4,7 @@ Android 表单页面逻辑生成管理工具
 
 # 使用方式
 
-1. 定义一个表单类 `DemoForm.java`，用来说明表单里的输入项、样式、提示（TODO：校验器）
+1. 定义一个表单类 `DemoForm.java`，用来说明表单里的输入项、样式、提示、校验
 
     ```java
     @Form
@@ -54,3 +54,26 @@ Android 表单页面逻辑生成管理工具
 2. 获取输入结果
 
 ![获取结果](art/form-result.png)
+
+## TODO
+
+* 异步校验器
+* 动态字段
+
+## License
+
+```
+Copyright 2017 twiceYuan.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

@@ -46,7 +46,7 @@ public class FormAdapter extends RecyclerView.Adapter<FormHolder> {
             if (formField != null) {
                 FormFieldEntity formFieldEntity = initHelper.initFormField(field, formField);
 
-                mFormFieldMap.put(formField.provider().hashCode(), formFieldEntity);
+                mFormFieldMap.put(formField.itemProvider().hashCode(), formFieldEntity);
                 mFormFields.add(formFieldEntity);
             }
 
@@ -65,7 +65,7 @@ public class FormAdapter extends RecyclerView.Adapter<FormHolder> {
     @Override
     public FormHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         FormFieldEntity formField = mFormFieldMap.get(viewType);
-        FormItemProvider provider = Singletons.getFormItemProvider(formField.provider);
+        FormItemProvider provider = Singletons.getFormItemProvider(formField.itemProvider);
         int layoutId = provider.layoutId();
         View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
         FormHolder formHolder = new FormHolder(view, provider);
@@ -75,7 +75,7 @@ public class FormAdapter extends RecyclerView.Adapter<FormHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return mFormFields.get(position).provider.hashCode();
+        return mFormFields.get(position).itemProvider.hashCode();
     }
 
     @Override

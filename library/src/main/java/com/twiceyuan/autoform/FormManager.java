@@ -1,6 +1,8 @@
 package com.twiceyuan.autoform;
 
 import com.twiceyuan.autoform.annotations.Form;
+import com.twiceyuan.autoform.pool.Singletons;
+import com.twiceyuan.autoform.provider.FormItemValidator;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +34,20 @@ public class FormManager {
 
     public FormAdapter getAdapter() {
         return mAdapter;
+    }
+
+    public boolean validate() {
+        List<FormFieldEntity> formFields = getAdapter().getFormFields();
+        for (FormFieldEntity formField : formFields) {
+            FormItemValidator validator = Singletons.getFormItemValidator(formField.validator);
+            if (!validator.validate(formField.result)) {
+                if (formField.mItemProvider != null) {
+                    formField.mItemProvider.onValidate(formField);
+                }
+                return false;
+            }
+        }
+        return true;
     }
 
     public Map<String, Object> getResult() {

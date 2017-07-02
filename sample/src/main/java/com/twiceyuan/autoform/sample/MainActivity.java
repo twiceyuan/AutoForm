@@ -37,10 +37,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == MENU_SUBMIT) {
+
+            if (!mFormManager.validate()) {
+                return true;
+            }
+
             new AlertDialog.Builder(this)
                     .setMessage(String.valueOf(mFormManager.getResult()))
                     .setPositiveButton("确定", null)
                     .show();
+
             return true;
         }
         return super.onOptionsItemSelected(item);

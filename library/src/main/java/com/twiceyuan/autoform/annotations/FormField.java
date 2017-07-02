@@ -3,6 +3,8 @@ package com.twiceyuan.autoform.annotations;
 import android.support.annotation.NonNull;
 
 import com.twiceyuan.autoform.provider.FormItemProvider;
+import com.twiceyuan.autoform.provider.FormItemValidator;
+import com.twiceyuan.autoform.provider.NonNullValidator;
 import com.twiceyuan.autoform.provider.SimpleFormItemProvider;
 
 import java.lang.annotation.Documented;
@@ -48,9 +50,17 @@ public @interface FormField {
     Class type() default String.class;
 
     /**
+     * 合法校验器
+     */
+    Class<? extends FormItemValidator> validator() default NonNullValidator.class;
+
+    /**
      * 表单样式
      */
-    Class<? extends FormItemProvider> provider() default SimpleFormItemProvider.class;
+    Class<? extends FormItemProvider> itemProvider() default SimpleFormItemProvider.class;
 
+    /**
+     * 输入提示
+     */
     String hint() default "";
 }

@@ -1,6 +1,7 @@
 package com.twiceyuan.autoform;
 
 import com.twiceyuan.autoform.provider.FormItemProvider;
+import com.twiceyuan.autoform.provider.FormItemValidator;
 
 /**
  * Created by twiceYuan on 2017/7/2.
@@ -37,10 +38,20 @@ public class FormFieldEntity {
     /**
      * 表单样式
      */
-    public Class<? extends FormItemProvider> provider;
+    public Class<? extends FormItemProvider> itemProvider;
+
+    /**
+     * 合法校验器
+     */
+    public Class<? extends FormItemValidator> validator;
 
     /**
      * 提示
      */
     public String hint;
+
+    /**
+     * 反向引用
+     */
+    public FormItemProvider mItemProvider;
 }

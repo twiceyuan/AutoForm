@@ -40,7 +40,8 @@ public class FormInitHelper {
         entity.label = formField.label();
         entity.order = formField.order();
         entity.type = formField.type();
-        entity.provider = formField.provider();
+        entity.itemProvider = formField.itemProvider();
+        entity.validator = formField.validator();
 
         if (TextUtils.isEmpty(formField.hint())) {
             entity.hint = mHintProvider.buildHint(formField.label());
@@ -55,8 +56,8 @@ public class FormInitHelper {
         }
 
         // 如果 Form 定义了 FormItemProvider 而 Field 为默认的话，则用 Form 级定义的取代 Field 的默认值
-        if (mFormItemProvider != null && formField.provider() == SimpleFormItemProvider.class) {
-            entity.provider = mFormItemProvider.getClass();
+        if (mFormItemProvider != null && formField.itemProvider() == SimpleFormItemProvider.class) {
+            entity.itemProvider = mFormItemProvider.getClass();
         }
 
         return entity;
