@@ -61,7 +61,7 @@ public class FormManager {
                         //noinspection unchecked
                         validator.onValidateFailed(formField, formField.itemProviderInstance);
                     } catch (Exception ignored) {
-                        Log.e(TAG, String.format("type not match: %s and %s",
+                        Log.e(TAG, String.format("Validator type does not match: validator is %s, but itemProvider is %s",
                                 validator.getClass().getName(),
                                 formField.itemProvider.getName()));
                     }
