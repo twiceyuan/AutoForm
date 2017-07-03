@@ -5,18 +5,17 @@ import android.widget.EditText;
 
 import com.twiceyuan.autoform.FormItemEntity;
 import com.twiceyuan.autoform.provider.FormItemValidator;
-import com.twiceyuan.autoform.provider.SimpleFormItemProvider;
 
 /**
  * Created by twiceYuan on 2017/7/3.
  *
  * 手机号码验证器
  */
-public class PhoneValidator implements FormItemValidator<SimpleFormItemProvider> {
+public class PhoneValidator implements FormItemValidator<PhoneFormItemProvider> {
 
     @Override
-    public void onValidateFailed(FormItemEntity entity, SimpleFormItemProvider provider) {
-        EditText mEtContent = provider.getEtContent();
+    public void onValidateFailed(FormItemEntity entity, PhoneFormItemProvider provider) {
+        EditText mEtContent = provider.getEtPhone();
         if (mEtContent.length() != 11) {
             mEtContent.requestFocus();
             new AlertDialog.Builder(mEtContent.getContext())

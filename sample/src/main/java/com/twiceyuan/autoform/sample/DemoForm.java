@@ -16,7 +16,7 @@ public class DemoForm {
     @FormField(label = "姓名", order = 0)
     public String name;
 
-    @FormField(label = "手机", order = 1, validator = PhoneValidator.class)
+    @FormField(label = "手机", order = 1, validator = PhoneValidator.class, itemProvider = PhoneFormItemProvider.class)
     public String phone;
 
     @FormField(label = "地址", order = 2)
