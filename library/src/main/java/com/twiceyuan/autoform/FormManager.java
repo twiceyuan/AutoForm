@@ -1,5 +1,6 @@
 package com.twiceyuan.autoform;
 
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.twiceyuan.autoform.annotations.Form;
@@ -17,6 +18,8 @@ import java.util.Map;
  * 表单逻辑生成
  */
 public class FormManager {
+
+    private static final String TAG = "FormManager";
 
     private FormView mFormView;
 
@@ -54,7 +57,14 @@ public class FormManager {
             FormItemValidator validator = Instances.getFormItemValidator(formField.validator);
             if (!validator.validate(formField.result)) {
                 if (formField.itemProviderInstance != null) {
-                    formField.itemProviderInstance.onValidate(formField);
+                    try {
+                        //noinspection unchecked
+                        validator.onValidateFailed(formField, formField.itemProviderInstance);
+                    } catch (Exception ignored) {
+                        Log.e(TAG, String.format("type not match: %s and %s",
+                                validator.getClass().getName(),
+                                formField.itemProvider.getName()));
+                    }
                 }
                 return false;
             }

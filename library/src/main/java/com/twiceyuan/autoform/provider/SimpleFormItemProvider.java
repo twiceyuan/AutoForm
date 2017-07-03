@@ -5,7 +5,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.twiceyuan.autoform.FormItemEntity;
 import com.twiceyuan.autoform.R;
@@ -55,11 +54,11 @@ public class SimpleFormItemProvider extends FormItemProvider {
         mEtContent = (EditText) convertView.findViewById(R.id.et_content);
     }
 
-    @Override
-    public void onValidate(FormItemEntity entity) {
-        if (mEtContent.length() == 0) {
-            mEtContent.requestFocus();
-            Toast.makeText(mEtContent.getContext(), entity.label + "不能为空", Toast.LENGTH_SHORT).show();
-        }
+    public EditText getEtContent() {
+        return mEtContent;
+    }
+
+    public TextView getTvLabel() {
+        return mTvLabel;
     }
 }

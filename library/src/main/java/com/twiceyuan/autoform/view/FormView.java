@@ -2,6 +2,8 @@ package com.twiceyuan.autoform.view;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
@@ -30,7 +32,9 @@ import java.util.List;
  */
 public class FormView extends LinearLayout {
 
-    private List<FormItemEntity> mFormItems = new ArrayList<>();
+    private static final String FORM_ITEMS = "formItems";
+
+    private ArrayList<FormItemEntity> mFormItems = new ArrayList<>();
 
     public FormView(Context context) {
         super(context);
@@ -96,6 +100,8 @@ public class FormView extends LinearLayout {
     }
 
     private void inflateFormView() {
+        removeAllViews();
+
         for (final FormItemEntity formField : mFormItems) {
             FormItemProvider itemProvider = Instances.newInstance(formField.itemProvider);
 
@@ -120,6 +126,25 @@ public class FormView extends LinearLayout {
             // 添加该行
             addView(formItemView);
         }
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        super.onSaveInstanceState();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(FORM_ITEMS, mFormItems);
+        return bundle;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            //noinspection unchecked
+            mFormItems = (ArrayList<FormItemEntity>) ((Bundle) state).getSerializable(FORM_ITEMS);
+
+            inflateFormView();
+        }
+        super.onRestoreInstanceState(state);
     }
 
     public List<FormItemEntity> getFormItems() {

@@ -3,12 +3,14 @@ package com.twiceyuan.autoform;
 import com.twiceyuan.autoform.provider.FormItemProvider;
 import com.twiceyuan.autoform.provider.FormItemValidator;
 
+import java.io.Serializable;
+
 /**
  * Created by twiceYuan on 2017/7/2.
  *
  * 表单字段实体
  */
-public class FormItemEntity {
+public class FormItemEntity implements Serializable {
 
     /**
      * 字段名称
