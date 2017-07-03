@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.twiceyuan.autoform.FormFieldEntity;
+import com.twiceyuan.autoform.FormItemEntity;
 import com.twiceyuan.autoform.R;
 import com.twiceyuan.autoform.ResultWatcher;
 
@@ -27,7 +27,7 @@ public class SimpleFormItemProvider extends FormItemProvider {
     }
 
     @Override
-    public void bindData(final FormFieldEntity field) {
+    public void bindData(final FormItemEntity field) {
         mTvLabel.setText(field.label);
         mEtContent.setHint(field.hint);
     }
@@ -56,8 +56,9 @@ public class SimpleFormItemProvider extends FormItemProvider {
     }
 
     @Override
-    public void onValidate(FormFieldEntity entity) {
+    public void onValidate(FormItemEntity entity) {
         if (mEtContent.length() == 0) {
+            mEtContent.requestFocus();
             Toast.makeText(mEtContent.getContext(), entity.label + "不能为空", Toast.LENGTH_SHORT).show();
         }
     }

@@ -3,7 +3,7 @@ package com.twiceyuan.autoform.provider;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
-import com.twiceyuan.autoform.FormFieldEntity;
+import com.twiceyuan.autoform.FormItemEntity;
 import com.twiceyuan.autoform.ResultWatcher;
 
 /**
@@ -15,11 +15,11 @@ public abstract class FormItemProvider {
 
     public abstract @LayoutRes int layoutId();
 
-    public abstract void bindData(FormFieldEntity field);
+    public abstract void bindData(FormItemEntity field);
 
     public abstract void resultWatcher(ResultWatcher watcher);
 
     public abstract void initView(View view);
 
-    public abstract void onValidate(FormFieldEntity entity);
+    public abstract void onValidate(FormItemEntity entity);
 }

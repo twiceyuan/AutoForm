@@ -1,8 +1,11 @@
 package com.twiceyuan.autoform;
 
+import android.widget.FrameLayout;
+
 import com.twiceyuan.autoform.annotations.Form;
-import com.twiceyuan.autoform.pool.Singletons;
+import com.twiceyuan.autoform.pool.Instances;
 import com.twiceyuan.autoform.provider.FormItemValidator;
+import com.twiceyuan.autoform.view.FormView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,34 +18,43 @@ import java.util.Map;
  */
 public class FormManager {
 
-    private FormAdapter mAdapter;
+    private FormView mFormView;
 
     private FormManager() {
     }
 
-    public static FormManager build(Class formClass) {
+    public static FormManager build(FrameLayout container, Class formClass) {
 
         Form form = (Form) formClass.getAnnotation(Form.class);
         if (form == null) {
             throw new IllegalStateException("formClass 必须含有 @Form 注解");
         }
 
-        FormManager factory = new FormManager();
-        factory.mAdapter = new FormAdapter(formClass);
-        return factory;
-    }
+        int childCount = container.getChildCount();
+        if (childCount > 0) {
+            throw new IllegalStateException("Form 不能注入，因为 container 已经包含了 Child View");
+        }
 
-    public FormAdapter getAdapter() {
-        return mAdapter;
+        FormView formView = new FormView(container.getContext());
+        formView.inflateForm(formClass);
+        container.addView(formView);
+
+        FormManager manager = new FormManager();
+        manager.mFormView = formView;
+        return manager;
     }
 
     public boolean validate() {
-        List<FormFieldEntity> formFields = getAdapter().getFormFields();
-        for (FormFieldEntity formField : formFields) {
-            FormItemValidator validator = Singletons.getFormItemValidator(formField.validator);
+        List<FormItemEntity> formFields = getFormView().getFormItems();
+        return validateItems(formFields);
+    }
+
+    private boolean validateItems(List<FormItemEntity> entities) {
+        for (FormItemEntity formField : entities) {
+            FormItemValidator validator = Instances.getFormItemValidator(formField.validator);
             if (!validator.validate(formField.result)) {
-                if (formField.mItemProvider != null) {
-                    formField.mItemProvider.onValidate(formField);
+                if (formField.itemProviderInstance != null) {
+                    formField.itemProviderInstance.onValidate(formField);
                 }
                 return false;
             }
@@ -50,10 +62,14 @@ public class FormManager {
         return true;
     }
 
+    public FormView getFormView() {
+        return mFormView;
+    }
+
     public Map<String, Object> getResult() {
-        List<FormFieldEntity> formFields = mAdapter.getFormFields();
+        List<FormItemEntity> formFields = getFormView().getFormItems();
         Map<String, Object> results = new HashMap<>();
-        for (FormFieldEntity formField : formFields) {
+        for (FormItemEntity formField : formFields) {
             results.put(formField.key, formField.result);
         }
         return results;

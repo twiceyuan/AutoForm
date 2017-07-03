@@ -12,11 +12,20 @@ import java.util.Map;
  * <p>
  * 全局单例池
  */
-public class Singletons {
+public class Instances {
 
     private static Map<Class<? extends FormItemProvider>, FormItemProvider>   mFormItemProviderMap  = new HashMap<>();
     private static Map<Class<? extends HintProvider>, HintProvider>           mHintProviderMap      = new HashMap<>();
     private static Map<Class<? extends FormItemValidator>, FormItemValidator> mFormItemValidatorMap = new HashMap<>();
+
+    public static <T> T newInstance(Class<T> instanceClass) {
+        try {
+            return instanceClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public static <T extends FormItemProvider> T getFormItemProvider(Class<T> providerClass) {
         FormItemProvider provider = mFormItemProviderMap.get(providerClass);

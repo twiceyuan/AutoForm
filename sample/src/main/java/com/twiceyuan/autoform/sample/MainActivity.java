@@ -3,10 +3,9 @@ package com.twiceyuan.autoform.sample;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import com.twiceyuan.autoform.FormManager;
 
@@ -14,8 +13,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MENU_SUBMIT = 1001;
 
-    private RecyclerView mForm;
-    private FormManager  mFormManager;
+    private FrameLayout mForm;
+    private FormManager mFormManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
 
-        mFormManager = FormManager.build(DemoForm.class);
-        mForm.setLayoutManager(new LinearLayoutManager(this));
-        mForm.setAdapter(mFormManager.getAdapter());
+        mFormManager = FormManager.build(mForm, DemoForm.class);
     }
 
     @Override
@@ -53,6 +50,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mForm = (RecyclerView) findViewById(R.id.form);
+        mForm = (FrameLayout) findViewById(R.id.form);
     }
 }

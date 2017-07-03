@@ -8,7 +8,7 @@ import com.twiceyuan.autoform.provider.FormItemValidator;
  *
  * 表单字段实体
  */
-public class FormFieldEntity {
+public class FormItemEntity {
 
     /**
      * 字段名称
@@ -31,11 +31,6 @@ public class FormFieldEntity {
     public Class type;
 
     /**
-     * 最终用户的输入，进行数据绑定时设置观察用户输入
-     */
-    public Object result;
-
-    /**
      * 表单样式
      */
     public Class<? extends FormItemProvider> itemProvider;
@@ -51,7 +46,12 @@ public class FormFieldEntity {
     public String hint;
 
     /**
+     * 最终用户的输入，进行数据绑定时设置观察用户输入
+     */
+    public Object result;
+
+    /**
      * 反向引用
      */
-    public FormItemProvider mItemProvider;
+    public FormItemProvider itemProviderInstance;
 }
