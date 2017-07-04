@@ -1,5 +1,6 @@
 package com.twiceyuan.autoform;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.twiceyuan.autoform.provider.DynamicFormItem;
 import com.twiceyuan.autoform.provider.LayoutProvider;
 import com.twiceyuan.autoform.provider.Validator;
 import com.twiceyuan.autoform.util.FormInitHelper;
+import com.twiceyuan.autoform.util.Instances;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -27,18 +29,21 @@ import java.util.Map;
  * <p>
  * 表单逻辑生成
  */
-public class FormManager {
+public class FormManager<T> {
 
     private static final String TAG = "FormManager";
 
+    private Class<T>             mDataClass;
     private List<FormItemEntity> mFormItemEntities;
 
-    private FormManager(List<FormItemEntity> entities) {
+    private FormManager(List<FormItemEntity> entities, Class<T> dataClass) {
         mFormItemEntities = entities;
+        mDataClass = dataClass;
     }
 
-    public static FormManager build(Class formClass) {
-        Form form = (Form) formClass.getAnnotation(Form.class);
+    public static <T> FormManager<T> build(Class<T> formClass) {
+
+        Form form = formClass.getAnnotation(Form.class);
 
         if (form == null) {
             throw new IllegalStateException("formClass 必须含有 @Form 注解");
@@ -64,7 +69,7 @@ public class FormManager {
 
         resort(entities);
 
-        return new FormManager(entities);
+        return new FormManager<>(entities, formClass);
     }
 
     /**
@@ -89,7 +94,7 @@ public class FormManager {
      * @return 表单管理器对象
      */
     @SuppressWarnings("unused")
-    public FormManager inject(FrameLayout container) {
+    public FormManager<T> inject(FrameLayout container) {
         return inject(container, false);
     }
 
@@ -101,7 +106,7 @@ public class FormManager {
      * @param isForce   是否移除原有的 Child View
      * @return 表单管理器对象
      */
-    public FormManager inject(FrameLayout container, boolean isForce) {
+    public FormManager<T> inject(FrameLayout container, boolean isForce) {
 
         int childCount = container.getChildCount();
         if (childCount > 0 && !isForce) {
@@ -133,7 +138,7 @@ public class FormManager {
      * @return 表单管理器对象
      */
     @SuppressWarnings("unused")
-    public FormManager append(DynamicFormItem formItem) {
+    public FormManager<T> append(DynamicFormItem formItem) {
 
         FormItemEntity entity = new FormItemEntity();
         entity.hint = formItem.hint();
@@ -151,14 +156,14 @@ public class FormManager {
      * 根据 key 查找一个布局管理器
      *
      * @param key 字段的 key
-     * @param <T> Provider 的类型，可以由前置定义决定
+     * @param <Provider> Provider 的类型，可以由前置定义决定
      * @return 对应的 layoutProvider
      */
-    public <T extends LayoutProvider> T findLayoutProviderByKey(String key) {
+    public <Provider extends LayoutProvider> Provider findLayoutProviderByKey(String key) {
         for (FormItemEntity entity : mFormItemEntities) {
             if (entity.key.equals(key)) {
                 //noinspection unchecked
-                return (T) entity.layout;
+                return (Provider) entity.layout;
             }
         }
         return null;
@@ -283,5 +288,42 @@ public class FormManager {
             results.put(formField.key, formField.result);
         }
         return results;
+    }
+
+    /**
+     * 获取所有输出结果，如果需要校验，请先调用 {@link this#validate()} 方法进行校验再获取
+     *
+     * @return 表单当前的输入结果
+     */
+    public T getData() {
+        T data = Instances.newInstance(mDataClass);
+        Field[] declaredFields = mDataClass.getDeclaredFields();
+        Map<String, Field> keyFieldMaps = new HashMap<>();
+
+        for (Field declaredField : declaredFields) {
+            FormField formField = declaredField.getAnnotation(FormField.class);
+            if (formField != null && !TextUtils.isEmpty(formField.key())) {
+                keyFieldMaps.put(formField.key(), declaredField);
+            } else {
+                keyFieldMaps.put(declaredField.getName(), declaredField);
+            }
+        }
+
+        for (FormItemEntity formField : mFormItemEntities) {
+            Field field = keyFieldMaps.get(formField.key);
+            boolean accessible = field.isAccessible();
+            if (!accessible) {
+                field.setAccessible(true);
+            }
+
+            try {
+                field.set(data, formField.result);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+            field.setAccessible(accessible);
+        }
+        return data;
     }
 }

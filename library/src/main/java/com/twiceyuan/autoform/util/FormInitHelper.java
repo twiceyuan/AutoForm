@@ -40,7 +40,6 @@ public class FormInitHelper {
 
         entity.label = formField.label();
         entity.order = formField.order();
-        entity.type = formField.type();
         entity.layout = Instances.newInstance(formField.layout());
         entity.validator = Instances.newInstance(formField.validator());
 

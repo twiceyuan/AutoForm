@@ -10,11 +10,11 @@ import java.util.Map;
  * <p>
  * 管理全局实例
  */
-class Instances {
+public class Instances {
 
     private static Map<Class<? extends HintProvider>, HintProvider> mHintProviderMap = new HashMap<>();
 
-    static <T> T newInstance(Class<T> instanceClass) {
+    public static <T> T newInstance(Class<T> instanceClass) {
         try {
             return instanceClass.newInstance();
         } catch (Exception e) {

@@ -43,13 +43,6 @@ public @interface FormField {
     @NonNull String key() default "";
 
     /**
-     * 默认为 String
-     *
-     * @return 字段类型
-     */
-    Class type() default String.class;
-
-    /**
      * 合法校验器
      */
     Class<? extends Validator> validator() default NonNullValidator.class;

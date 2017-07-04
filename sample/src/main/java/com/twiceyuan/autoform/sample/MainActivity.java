@@ -16,6 +16,7 @@ import com.twiceyuan.autoform.sample.form.SelectorLayoutProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
 
-        final FormManager formManager = FormManager
+        final FormManager<DemoForm> formManager = FormManager
                 .build(DemoForm.class)
                 .inject(mForm, true);
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
      * @param formManager 选择器所在的表单管理器
      */
     private void appendSelectorLogic(FormManager formManager) {
-        final SelectorLayoutProvider selector = formManager.findLayoutProviderByKey("type");
+        final SelectorLayoutProvider selector = (SelectorLayoutProvider) formManager.findLayoutProviderByKey("type");
 
         // 异步请求分类并配置
         asyncFetchCategories(new Callback<List<Category>>() {
@@ -105,8 +106,10 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        Map result = manager.getResult();
+
         new AlertDialog.Builder(MainActivity.this)
-                .setMessage(String.valueOf(manager.getResult()))
+                .setMessage(String.valueOf(result))
                 .setPositiveButton("确定", null)
                 .show();
     }
