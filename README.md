@@ -1,5 +1,10 @@
 # AutoForm
 
+[![](https://jitpack.io/v/twiceyuan/AutoForm.svg)](https://jitpack.io/#twiceyuan/AutoForm)
+<a href="http://www.methodscount.com/?lib=com.github.twiceyuan%3AAutoForm%3A0.2.4"><img src="https://img.shields.io/badge/Methods count-122-e91e63.svg"/></a>
+<a href="http://www.methodscount.com/?lib=com.github.twiceyuan%3AAutoForm%3A0.2.4"><img src="https://img.shields.io/badge/Size-17 KB-e91e63.svg"/></a>
+
+
 高度可复用的 Android 表单界面生成器。通过定义表单元素的界面样式、校验逻辑，然后注解在数据实体上来生成表单提交页。
 
 # 使用方式
