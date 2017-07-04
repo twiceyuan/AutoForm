@@ -15,7 +15,7 @@ import com.twiceyuan.autoform.ResultWatcher;
  * <p>
  * 表单默认样式
  */
-public class SimpleLayoutProvider extends TextItemProvider {
+public class SimpleLayoutProvider implements TextItemProvider {
 
     private TextView mTvLabel;
     private EditText mEtContent;

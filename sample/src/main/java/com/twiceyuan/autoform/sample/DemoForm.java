@@ -13,21 +13,22 @@ import com.twiceyuan.autoform.sample.form.TextAreaLayoutProvider;
  * <p>
  * 表单示例
  */
+@SuppressWarnings("WeakerAccess")
 @Form(layout = NormalLayoutProvider.class)
 public class DemoForm {
 
     @FormField(label = "工单内容", order = 0, layout = TextAreaLayoutProvider.class)
     public String name;
 
-    @FormField(label = "工单类型", order = 1.5f, layout = SelectorLayoutProvider.class)
+    @FormField(label = "工单类型", order = 1, layout = SelectorLayoutProvider.class)
     public String type;
 
-    @FormField(label = "地址", order = 1)
+    @FormField(label = "地址", order = 2)
     public String address;
 
-    @FormField(label = "联系方式", order = 2, validator = PhoneValidator.class, layout = PhoneLayoutProvider.class)
+    @FormField(label = "联系方式", order = 3, validator = PhoneValidator.class, layout = PhoneLayoutProvider.class)
     public String phone;
 
-    @FormField(label = "申请人", order = 3)
+    @FormField(label = "申请人", order = 4)
     public String company;
 }

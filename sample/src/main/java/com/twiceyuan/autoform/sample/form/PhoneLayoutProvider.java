@@ -16,7 +16,7 @@ import com.twiceyuan.autoform.sample.R;
  * <p>
  * 手机号输入框
  */
-public class PhoneLayoutProvider extends LayoutProvider {
+public class PhoneLayoutProvider implements LayoutProvider {
 
     private EditText mEtPhone;
     private TextView mTvLabel;

@@ -15,7 +15,7 @@ import com.twiceyuan.autoform.sample.R;
  *
  * 多行文本内容编辑器
  */
-public class TextAreaLayoutProvider extends TextItemProvider {
+public class TextAreaLayoutProvider implements TextItemProvider {
 
     private EditText mEtContent;
 

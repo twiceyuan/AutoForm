@@ -22,7 +22,7 @@ import java.util.List;
  * <p>
  * 下拉选择框表单元素
  */
-public class SelectorLayoutProvider extends LayoutProvider {
+public class SelectorLayoutProvider implements LayoutProvider {
 
     private TextView            mTvLabel;
     private Spinner             mSpSelector;

@@ -21,24 +21,7 @@
             <FrameLayout
                 android:id="@+id/form"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    tools:visibility="visible">
-
-                    <include layout="@layout/form_item_text_area"/>
-
-                    <include layout="@layout/form_item_phone"/>
-
-                    <include layout="@layout/form_item_normal"/>
-
-                </LinearLayout>
-
-            </FrameLayout>
+                android:layout_height="wrap_content"/>
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_submit"

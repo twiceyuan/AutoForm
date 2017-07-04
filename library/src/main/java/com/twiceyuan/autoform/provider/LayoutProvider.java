@@ -6,20 +6,18 @@ import android.view.View;
 import com.twiceyuan.autoform.FormItemEntity;
 import com.twiceyuan.autoform.ResultWatcher;
 
-import java.io.Serializable;
-
 /**
  * Created by twiceYuan on 2017/7/2.
  * <p>
  * 基本 Form 表单显示类型，需要可以扩展并实现
  */
-public abstract class LayoutProvider implements Serializable {
+public interface LayoutProvider {
 
-    public abstract @LayoutRes int layoutId();
+    @LayoutRes int layoutId();
 
-    public abstract void bindData(FormItemEntity field);
+    void bindData(FormItemEntity field);
 
-    public abstract void resultWatcher(ResultWatcher watcher);
+    void resultWatcher(ResultWatcher watcher);
 
-    public abstract void initView(View view);
+    void initView(View view);
 }
