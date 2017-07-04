@@ -5,7 +5,7 @@ import com.twiceyuan.autoform.provider.Validator;
 
 /**
  * Created by twiceYuan on 2017/7/2.
- *
+ * <p>
  * 表单字段实体
  */
 public class FormItemEntity {
@@ -48,5 +48,6 @@ public class FormItemEntity {
     /**
      * 最终用户的输入，进行数据绑定时设置观察用户输入
      */
-    public Object result;
+    @SuppressWarnings("WeakerAccess")
+    protected Object result;
 }

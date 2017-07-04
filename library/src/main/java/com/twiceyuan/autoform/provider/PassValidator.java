@@ -7,6 +7,7 @@ import com.twiceyuan.autoform.FormItemEntity;
  * <p>
  * 不进行验证验证器
  */
+@SuppressWarnings("unused")
 public class PassValidator implements Validator<LayoutProvider> {
 
     @Override

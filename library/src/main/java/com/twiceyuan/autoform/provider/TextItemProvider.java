@@ -9,5 +9,10 @@ import android.widget.EditText;
  */
 public abstract class TextItemProvider extends LayoutProvider {
 
+    /**
+     * 以文字输入为主要输入的表单元素，可以直接继承该布局提供者来共享默认的文本校验器
+     *
+     * @return 表单元素主要的文本输入框
+     */
     public abstract EditText inputArea();
 }

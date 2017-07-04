@@ -3,7 +3,7 @@ package com.twiceyuan.autoform.provider;
 /**
  * Created by twiceYuan on 2017/7/2.
  *
- *
+ * 文本提示提供者，一般根据 Label 来组合获取。
  */
 public interface HintProvider {
 
