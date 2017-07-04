@@ -1,9 +1,7 @@
 package com.twiceyuan.autoform.provider;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.twiceyuan.autoform.FormItemEntity;
 
@@ -12,14 +10,13 @@ import com.twiceyuan.autoform.FormItemEntity;
  * <p>
  * 非空验证器
  */
-public class NonNullValidator implements FormItemValidator<SimpleFormItemProvider> {
+public class NonNullValidator implements FormItemValidator<TextItemProvider> {
 
     @Override
-    public void onValidateFailed(FormItemEntity entity, SimpleFormItemProvider provider) {
-        EditText editText = provider.getEtContent();
-        Context context = editText.getContext();
+    public void onValidateFailed(FormItemEntity entity, TextItemProvider provider) {
+        EditText editText = provider.inputArea();
         editText.requestFocus();
-        Toast.makeText(context, entity.label + "不能为空", Toast.LENGTH_SHORT).show();
+        editText.setError(entity.label + "不能为空");
     }
 
     @Override

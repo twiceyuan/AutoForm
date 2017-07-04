@@ -26,7 +26,11 @@ public class FormManager {
     private FormManager() {
     }
 
-    public static FormManager build(FrameLayout container, Class formClass) {
+    public static FormManager inject(FrameLayout container, Class formClass) {
+        return inject(container, formClass, false);
+    }
+
+    public static FormManager inject(FrameLayout container, Class formClass, boolean isForce) {
 
         Form form = (Form) formClass.getAnnotation(Form.class);
         if (form == null) {
@@ -34,8 +38,10 @@ public class FormManager {
         }
 
         int childCount = container.getChildCount();
-        if (childCount > 0) {
+        if (childCount > 0 && !isForce) {
             throw new IllegalStateException("Form 不能注入，因为 container 已经包含了 Child View");
+        } else {
+            container.removeAllViews();
         }
 
         FormView formView = new FormView(container.getContext());

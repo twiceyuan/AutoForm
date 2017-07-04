@@ -3,18 +3,17 @@ package com.twiceyuan.autoform.sample;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.widget.AppCompatButton;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.twiceyuan.autoform.FormManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int MENU_SUBMIT = 1001;
-
-    private FrameLayout mForm;
-    private FormManager mFormManager;
+    private FrameLayout     mForm;
+    private FormManager     mFormManager;
+    private AppCompatButton mBtnSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,34 +21,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
 
-        mFormManager = FormManager.build(mForm, DemoForm.class);
-    }
+        mFormManager = FormManager.inject(mForm, DemoForm.class, true);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(Menu.NONE, MENU_SUBMIT, 0, R.string.submit).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == MENU_SUBMIT) {
-
-            if (!mFormManager.validate()) {
-                return true;
+        mBtnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mockSubmit();
             }
+        });
+    }
 
-            new AlertDialog.Builder(this)
-                    .setMessage(String.valueOf(mFormManager.getResult()))
-                    .setPositiveButton("确定", null)
-                    .show();
-
-            return true;
+    private void mockSubmit() {
+        if (!mFormManager.validate()) {
+            return;
         }
-        return super.onOptionsItemSelected(item);
+
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage(String.valueOf(mFormManager.getResult()))
+                .setPositiveButton("确定", null)
+                .show();
     }
 
     private void initView() {
         mForm = (FrameLayout) findViewById(R.id.form);
+        mBtnSubmit = (AppCompatButton) findViewById(R.id.btn_submit);
     }
 }

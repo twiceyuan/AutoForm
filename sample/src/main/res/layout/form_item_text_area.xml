@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:inputType="text"
+        android:padding="12dp"
+        tools:text="测试文字"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</LinearLayout>

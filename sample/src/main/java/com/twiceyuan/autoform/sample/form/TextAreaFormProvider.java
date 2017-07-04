@@ -1,34 +1,36 @@
-package com.twiceyuan.autoform.provider;
+package com.twiceyuan.autoform.sample.form;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.twiceyuan.autoform.FormItemEntity;
-import com.twiceyuan.autoform.R;
 import com.twiceyuan.autoform.ResultWatcher;
+import com.twiceyuan.autoform.provider.TextItemProvider;
+import com.twiceyuan.autoform.sample.R;
 
 /**
- * Created by twiceYuan on 2017/7/2.
- * <p>
- * 表单默认样式
+ * Created by twiceYuan on 2017/7/3.
+ *
+ * 多行文本内容编辑器
  */
-public class SimpleFormItemProvider extends TextItemProvider {
+public class TextAreaFormProvider extends TextItemProvider {
 
-    private TextView mTvLabel;
     private EditText mEtContent;
 
     @Override
     public int layoutId() {
-        return R.layout.auto_form_default_item;
+        return R.layout.form_item_text_area;
     }
 
     @Override
-    public void bindData(final FormItemEntity field) {
-        mTvLabel.setText(field.label);
+    public void bindData(FormItemEntity field) {
         mEtContent.setHint(field.hint);
+    }
+
+    public EditText getEtContent() {
+        return mEtContent;
     }
 
     @Override
@@ -49,17 +51,9 @@ public class SimpleFormItemProvider extends TextItemProvider {
         });
     }
 
-    public void initView(View convertView) {
-        mTvLabel = (TextView) convertView.findViewById(R.id.tv_label);
-        mEtContent = (EditText) convertView.findViewById(R.id.et_content);
-    }
-
-    public EditText getEtContent() {
-        return mEtContent;
-    }
-
-    public TextView getTvLabel() {
-        return mTvLabel;
+    @Override
+    public void initView(View view) {
+        mEtContent = (EditText) view.findViewById(R.id.et_content);
     }
 
     @Override

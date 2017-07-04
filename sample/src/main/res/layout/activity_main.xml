@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,12 +10,48 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorBackground"
         tools:ignore="UselessParent">
 
-        <FrameLayout
-            android:id="@+id/form"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <include layout="@layout/form_item_text_area"/>
+
+                    <include layout="@layout/form_item_phone"/>
+
+                    <include layout="@layout/form_item_normal"/>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:padding="18dp"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@color/colorPrimary"/>
+
+        </LinearLayout>
 
     </ScrollView>
 

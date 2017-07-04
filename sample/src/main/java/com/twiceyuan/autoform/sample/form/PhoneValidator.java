@@ -1,6 +1,5 @@
-package com.twiceyuan.autoform.sample;
+package com.twiceyuan.autoform.sample.form;
 
-import android.support.v7.app.AlertDialog;
 import android.widget.EditText;
 
 import com.twiceyuan.autoform.FormItemEntity;
@@ -18,10 +17,7 @@ public class PhoneValidator implements FormItemValidator<PhoneFormItemProvider> 
         EditText mEtContent = provider.getEtPhone();
         if (mEtContent.length() != 11) {
             mEtContent.requestFocus();
-            new AlertDialog.Builder(mEtContent.getContext())
-                    .setMessage("手机号码必须为 11 位纯数字")
-                    .setPositiveButton("好的", null)
-                    .show();
+            mEtContent.setError("手机号码必须为 11 位纯数字");
         }
     }
 
