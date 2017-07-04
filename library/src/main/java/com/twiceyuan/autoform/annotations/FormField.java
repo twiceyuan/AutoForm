@@ -2,10 +2,10 @@ package com.twiceyuan.autoform.annotations;
 
 import android.support.annotation.NonNull;
 
-import com.twiceyuan.autoform.provider.FormItemProvider;
-import com.twiceyuan.autoform.provider.FormItemValidator;
+import com.twiceyuan.autoform.provider.LayoutProvider;
+import com.twiceyuan.autoform.provider.Validator;
 import com.twiceyuan.autoform.provider.NonNullValidator;
-import com.twiceyuan.autoform.provider.SimpleFormItemProvider;
+import com.twiceyuan.autoform.provider.SimpleLayoutProvider;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -35,7 +35,7 @@ public @interface FormField {
      *
      * @return 数字越小代表越靠前，比如 0 会排在前面，而 100 会排在后面
      */
-    int order();
+    float order();
 
     /**
      * 表单生成的 Key 值
@@ -52,12 +52,12 @@ public @interface FormField {
     /**
      * 合法校验器
      */
-    Class<? extends FormItemValidator> validator() default NonNullValidator.class;
+    Class<? extends Validator> validator() default NonNullValidator.class;
 
     /**
      * 表单样式
      */
-    Class<? extends FormItemProvider> itemProvider() default SimpleFormItemProvider.class;
+    Class<? extends LayoutProvider> layout() default SimpleLayoutProvider.class;
 
     /**
      * 输入提示

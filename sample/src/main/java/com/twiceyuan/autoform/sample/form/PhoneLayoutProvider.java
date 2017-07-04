@@ -4,38 +4,37 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.twiceyuan.autoform.FormItemEntity;
 import com.twiceyuan.autoform.ResultWatcher;
-import com.twiceyuan.autoform.provider.TextItemProvider;
+import com.twiceyuan.autoform.provider.LayoutProvider;
 import com.twiceyuan.autoform.sample.R;
 
 /**
  * Created by twiceYuan on 2017/7/3.
- *
- * 多行文本内容编辑器
+ * <p>
+ * 手机号输入框
  */
-public class TextAreaFormProvider extends TextItemProvider {
+public class PhoneLayoutProvider extends LayoutProvider {
 
-    private EditText mEtContent;
+    private EditText mEtPhone;
+    private TextView mTvLabel;
 
     @Override
     public int layoutId() {
-        return R.layout.form_item_text_area;
+        return R.layout.form_item_phone;
     }
 
     @Override
     public void bindData(FormItemEntity field) {
-        mEtContent.setHint(field.hint);
-    }
-
-    public EditText getEtContent() {
-        return mEtContent;
+        mEtPhone.setHint(field.hint);
+        mTvLabel.setText(field.label);
     }
 
     @Override
     public void resultWatcher(final ResultWatcher watcher) {
-        mEtContent.addTextChangedListener(new TextWatcher() {
+        mEtPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -46,18 +45,18 @@ public class TextAreaFormProvider extends TextItemProvider {
 
             @Override
             public void afterTextChanged(Editable s) {
-                watcher.updateResult(s.toString());
+                watcher.updateResult(mEtPhone.getText().toString());
             }
         });
     }
 
     @Override
     public void initView(View view) {
-        mEtContent = (EditText) view.findViewById(R.id.et_content);
+        mEtPhone = (EditText) view.findViewById(R.id.et_phone);
+        mTvLabel = (TextView) view.findViewById(R.id.tv_label);
     }
 
-    @Override
-    public EditText inputArea() {
-        return mEtContent;
+    public EditText getEtPhone() {
+        return mEtPhone;
     }
 }

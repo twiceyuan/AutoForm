@@ -1,8 +1,8 @@
 package com.twiceyuan.autoform.annotations;
 
-import com.twiceyuan.autoform.provider.FormItemProvider;
+import com.twiceyuan.autoform.provider.LayoutProvider;
 import com.twiceyuan.autoform.provider.HintProvider;
-import com.twiceyuan.autoform.provider.SimpleFormItemProvider;
+import com.twiceyuan.autoform.provider.SimpleLayoutProvider;
 import com.twiceyuan.autoform.provider.SimpleHintProvider;
 
 import java.lang.annotation.Documented;
@@ -23,5 +23,5 @@ public @interface Form {
 
     Class<? extends HintProvider> hintProvider() default SimpleHintProvider.class;
 
-    Class<? extends FormItemProvider> itemProvider() default SimpleFormItemProvider.class;
+    Class<? extends LayoutProvider> itemProvider() default SimpleLayoutProvider.class;
 }

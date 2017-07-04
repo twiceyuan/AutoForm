@@ -7,7 +7,7 @@ import android.widget.EditText;
  *
  * 带输入框的表单元素，用于匹配通用的验证器
  */
-public abstract class TextItemProvider extends FormItemProvider {
+public abstract class TextItemProvider extends LayoutProvider {
 
     public abstract EditText inputArea();
 }

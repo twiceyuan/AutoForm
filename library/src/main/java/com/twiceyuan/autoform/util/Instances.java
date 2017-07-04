@@ -1,7 +1,7 @@
-package com.twiceyuan.autoform.pool;
+package com.twiceyuan.autoform.util;
 
-import com.twiceyuan.autoform.provider.FormItemProvider;
-import com.twiceyuan.autoform.provider.FormItemValidator;
+import com.twiceyuan.autoform.provider.LayoutProvider;
+import com.twiceyuan.autoform.provider.Validator;
 import com.twiceyuan.autoform.provider.HintProvider;
 
 import java.util.HashMap;
@@ -14,9 +14,9 @@ import java.util.Map;
  */
 public class Instances {
 
-    private static Map<Class<? extends FormItemProvider>, FormItemProvider>   mFormItemProviderMap  = new HashMap<>();
-    private static Map<Class<? extends HintProvider>, HintProvider>           mHintProviderMap      = new HashMap<>();
-    private static Map<Class<? extends FormItemValidator>, FormItemValidator> mFormItemValidatorMap = new HashMap<>();
+    private static Map<Class<? extends LayoutProvider>, LayoutProvider> mFormItemProviderMap  = new HashMap<>();
+    private static Map<Class<? extends HintProvider>, HintProvider>     mHintProviderMap      = new HashMap<>();
+    private static Map<Class<? extends Validator>, Validator>           mFormItemValidatorMap = new HashMap<>();
 
     public static <T> T newInstance(Class<T> instanceClass) {
         try {
@@ -27,8 +27,8 @@ public class Instances {
         }
     }
 
-    public static <T extends FormItemProvider> T getFormItemProvider(Class<T> providerClass) {
-        FormItemProvider provider = mFormItemProviderMap.get(providerClass);
+    public static <T extends LayoutProvider> T getFormItemProvider(Class<T> providerClass) {
+        LayoutProvider provider = mFormItemProviderMap.get(providerClass);
         if (provider == null) {
             try {
                 provider = providerClass.newInstance();
@@ -41,8 +41,8 @@ public class Instances {
         return (T) provider;
     }
 
-    public static <T extends FormItemValidator> T getFormItemValidator(Class<T> cls) {
-        FormItemValidator validator = mFormItemValidatorMap.get(cls);
+    public static <T extends Validator> T getFormItemValidator(Class<T> cls) {
+        Validator validator = mFormItemValidatorMap.get(cls);
         if (validator == null) {
             try {
                 validator = cls.newInstance();

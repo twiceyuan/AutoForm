@@ -15,7 +15,7 @@ import com.twiceyuan.autoform.ResultWatcher;
  * <p>
  * 表单默认样式
  */
-public class SimpleFormItemProvider extends TextItemProvider {
+public class SimpleLayoutProvider extends TextItemProvider {
 
     private TextView mTvLabel;
     private EditText mEtContent;
@@ -52,14 +52,6 @@ public class SimpleFormItemProvider extends TextItemProvider {
     public void initView(View convertView) {
         mTvLabel = (TextView) convertView.findViewById(R.id.tv_label);
         mEtContent = (EditText) convertView.findViewById(R.id.et_content);
-    }
-
-    public EditText getEtContent() {
-        return mEtContent;
-    }
-
-    public TextView getTvLabel() {
-        return mTvLabel;
     }
 
     @Override

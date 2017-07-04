@@ -7,7 +7,7 @@ import com.twiceyuan.autoform.FormItemEntity;
  *
  * 表单输入验证器
  */
-public interface FormItemValidator<ItemProvider extends FormItemProvider> {
+public interface Validator<ItemProvider extends LayoutProvider> {
 
     void onValidateFailed(FormItemEntity entity, ItemProvider provider);
 

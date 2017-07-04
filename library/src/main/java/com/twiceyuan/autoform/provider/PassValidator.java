@@ -7,10 +7,10 @@ import com.twiceyuan.autoform.FormItemEntity;
  * <p>
  * 不进行验证验证器
  */
-public class PassValidator implements FormItemValidator<FormItemProvider> {
+public class PassValidator implements Validator<LayoutProvider> {
 
     @Override
-    public void onValidateFailed(FormItemEntity entity, FormItemProvider provider) {
+    public void onValidateFailed(FormItemEntity entity, LayoutProvider provider) {
         // do nothing
     }
 

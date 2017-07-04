@@ -10,7 +10,7 @@ import com.twiceyuan.autoform.FormItemEntity;
  * <p>
  * 非空验证器
  */
-public class NonNullValidator implements FormItemValidator<TextItemProvider> {
+public class NonNullValidator implements Validator<TextItemProvider> {
 
     @Override
     public void onValidateFailed(FormItemEntity entity, TextItemProvider provider) {

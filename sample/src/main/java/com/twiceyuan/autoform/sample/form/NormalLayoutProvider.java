@@ -16,7 +16,7 @@ import com.twiceyuan.autoform.sample.R;
  * <p>
  * 默认的表单单元
  */
-public class NormalFormProvider extends TextItemProvider {
+public class NormalLayoutProvider extends TextItemProvider {
     private EditText mEtContent;
     private TextView mTvLabel;
 

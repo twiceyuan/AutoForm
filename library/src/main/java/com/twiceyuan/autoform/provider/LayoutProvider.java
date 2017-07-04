@@ -13,7 +13,7 @@ import java.io.Serializable;
  * <p>
  * 基本 Form 表单显示类型，需要可以扩展并实现
  */
-public abstract class FormItemProvider implements Serializable {
+public abstract class LayoutProvider implements Serializable {
 
     public abstract @LayoutRes int layoutId();
 
