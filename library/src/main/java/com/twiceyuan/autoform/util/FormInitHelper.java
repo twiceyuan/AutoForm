@@ -29,7 +29,7 @@ public class FormInitHelper {
         FormInitHelper helper = new FormInitHelper();
 
         helper.mHintProvider = Instances.getHintProvider(form.hintProvider());
-        helper.mFormItemProviderClass = form.itemProvider();
+        helper.mFormItemProviderClass = form.layout();
 
         return helper;
     }

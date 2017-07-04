@@ -23,5 +23,5 @@ public @interface Form {
 
     Class<? extends HintProvider> hintProvider() default SimpleHintProvider.class;
 
-    Class<? extends LayoutProvider> itemProvider() default SimpleLayoutProvider.class;
+    Class<? extends LayoutProvider> layout() default SimpleLayoutProvider.class;
 }

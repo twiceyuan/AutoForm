@@ -13,7 +13,7 @@ import com.twiceyuan.autoform.sample.form.TextAreaLayoutProvider;
  * <p>
  * 表单示例
  */
-@Form(itemProvider = NormalLayoutProvider.class)
+@Form(layout = NormalLayoutProvider.class)
 public class DemoForm {
 
     @FormField(label = "工单内容", order = 0, layout = TextAreaLayoutProvider.class)
