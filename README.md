@@ -1,6 +1,6 @@
 # AutoForm
 
-[![](https://jitpack.io/v/twiceyuan/AutoForm.svg)](https://jitpack.io/#twiceyuan/AutoForm)
+[![Build Status](https://travis-ci.org/twiceyuan/AutoForm.svg?branch=master)](https://travis-ci.org/twiceyuan/AutoForm)[![](https://jitpack.io/v/twiceyuan/AutoForm.svg)](https://jitpack.io/#twiceyuan/AutoForm)
 <a href="http://www.methodscount.com/?lib=com.github.twiceyuan%3AAutoForm%3A0.2.4"><img src="https://img.shields.io/badge/Methods count-122-e91e63.svg"/></a>
 <a href="http://www.methodscount.com/?lib=com.github.twiceyuan%3AAutoForm%3A0.2.4"><img src="https://img.shields.io/badge/Size-17 KB-e91e63.svg"/></a>
 
