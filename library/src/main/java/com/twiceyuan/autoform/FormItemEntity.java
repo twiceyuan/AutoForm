@@ -49,5 +49,5 @@ public class FormItemEntity {
      * 最终用户的输入，进行数据绑定时设置观察用户输入
      */
     @SuppressWarnings("WeakerAccess")
-    protected Object result;
+    public Object result;
 }

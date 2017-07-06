@@ -29,8 +29,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
 
+        DemoForm form = new DemoForm();
+        form.address = "默认地址";
+
         final FormManager<DemoForm> formManager = FormManager
                 .build(DemoForm.class)
+                .initData(form)
                 .inject(mForm, true);
 
         appendSelectorLogic(formManager);

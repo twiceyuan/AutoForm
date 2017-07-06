@@ -29,6 +29,11 @@ public class NormalLayoutProvider implements TextItemProvider {
     public void bindData(FormItemEntity field) {
         mEtContent.setHint(field.hint);
         mTvLabel.setText(field.label);
+
+        // 初始化默认数据
+        if (field.result != null && field.result instanceof String) {
+            mEtContent.setText((String) field.result);
+        }
     }
 
     @Override
