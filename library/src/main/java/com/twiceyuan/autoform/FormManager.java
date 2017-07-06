@@ -131,9 +131,19 @@ public class FormManager<T> {
         return this;
     }
 
+    /**
+     * 初始化一个实体数据，用户初始化表单默认输入
+     *
+     * @param data 数据实体
+     * @return manager 实例
+     */
     public FormManager<T> initData(T data) {
         for (FormItemEntity entity : mFormItemEntities) {
-
+            try {
+                entity.result = mDataClass.getField(entity.fieldName).get(data);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return this;
     }
