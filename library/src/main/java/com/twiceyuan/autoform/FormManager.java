@@ -132,7 +132,7 @@ public class FormManager<T> {
     }
 
     /**
-     * 初始化一个实体数据，用户初始化表单默认输入
+     * 初始化一个实体数据，用于初始化表单默认输入
      *
      * @param data 数据实体
      * @return manager 实例
@@ -144,6 +144,19 @@ public class FormManager<T> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        return this;
+    }
+
+    /**
+     * 初始化一个实体数据（Map），用于初始化表单默认输入
+     *
+     * @param data 数据实体
+     * @return manager 实例
+     */
+    public FormManager<T> initData(Map<String, Object> data) {
+        for (FormItemEntity entity : mFormItemEntities) {
+            entity.result = data.get(entity.key);
         }
         return this;
     }
