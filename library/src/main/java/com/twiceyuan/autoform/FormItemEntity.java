@@ -26,9 +26,9 @@ public class FormItemEntity {
     public String key;
 
     /**
-     * 默认为 String
+     * 映射的属性名称，注意：如果是动态字段讲不会反射到实体类上，必须使用 Map 获取，因为实体中无法动态创建属性
      */
-    public Class type;
+    public String fieldName;
 
     /**
      * 表单样式

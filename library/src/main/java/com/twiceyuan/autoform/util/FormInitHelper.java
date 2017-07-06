@@ -42,6 +42,7 @@ public class FormInitHelper {
         entity.order = formField.order();
         entity.layout = Instances.newInstance(formField.layout());
         entity.validator = Instances.newInstance(formField.validator());
+        entity.fieldName = field.getName();
 
         if (TextUtils.isEmpty(formField.hint())) {
             entity.hint = mHintProvider.buildHint(formField.label());

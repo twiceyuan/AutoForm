@@ -131,6 +131,13 @@ public class FormManager<T> {
         return this;
     }
 
+    public FormManager<T> initData(T data) {
+        for (FormItemEntity entity : mFormItemEntities) {
+
+        }
+        return this;
+    }
+
     /**
      * 动态添加一个表单元素
      *
@@ -155,7 +162,7 @@ public class FormManager<T> {
     /**
      * 根据 key 查找一个布局管理器
      *
-     * @param key 字段的 key
+     * @param key        字段的 key
      * @param <Provider> Provider 的类型，可以由前置定义决定
      * @return 对应的 layoutProvider
      */
