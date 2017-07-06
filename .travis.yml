@@ -1,6 +1,14 @@
 before_install:
  - chmod +x gradlew
 
+install:
+  - echo y | android update sdk -u -a -t tools
+  - echo y | android update sdk -u -a -t platform-tools
+  - echo y | android update sdk -u -a -t build-tools-25.0.2
+  - echo y | android update sdk -u -a -t android-25
+  - echo y | android update sdk -u -a -t extra-google-m2repository
+  - echo y | android update sdk -u -a -t extra-android-m2repository
+
 language: android
 jdk:
   - oraclejdk8
@@ -12,10 +20,6 @@ android:
     - extra-android-support
     - extra-android-m2repository
     - extra-google-m2repository
-  licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
     # - platform-tools
