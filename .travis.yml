@@ -1,44 +1,42 @@
 before_install:
  - chmod +x gradlew
 
-install:
-  - echo y | android update sdk -u -a -t tools
-  - echo y | android update sdk -u -a -t platform-tools
-  - echo y | android update sdk -u -a -t build-tools-25.0.2
-  - echo y | android update sdk -u -a -t android-25
-  - echo y | android update sdk -u -a -t extra-google-m2repository
-  - echo y | android update sdk -u -a -t extra-android-m2repository
+#install:
+#  - echo y | android update sdk -u -a -t tools
+#  - echo y | android update sdk -u -a -t platform-tools
+#  - echo y | android update sdk -u -a -t build-tools-25.0.2
+#  - echo y | android update sdk -u -a -t android-25
+#  - echo y | android update sdk -u -a -t extra-google-m2repository
+#  - echo y | android update sdk -u -a -t extra-android-m2repository
 
 language: android
-jdk:
-  - oraclejdk8
+sudo: false
 android:
   components:
     - tools
     - build-tools-25.0.2
-    - android-25
-    - extra-android-support
+    - platform-tools
     - extra-android-m2repository
-    - extra-google-m2repository
-    # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    # - platform-tools
-    # - tools
-
+    - extra-google-android-support
     # The BuildTools version used by your project
-    #- build-tools-23.0.2
+    #- build-tools-19.1.0
 
     # The SDK version used to compile your project
-    #- android-23
+    - android-16
+    - android-21
+    - android-22
+    - android-25
 
     # Additional components
-    #- extra-google-google_play_services
-    #- extra-google-m2repository
-    #- extra-android-m2repository
-    #- addon-google_apis-google-19
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    #- sys-img-armeabi-v7a-android-19
-    #- sys-img-x86-android-17
+    - sys-img-armeabi-v7a-android-16
+    - sys-img-armeabi-v7a-android-21
+    - sys-img-armeabi-v7a-android-22
+    - sys-img-armeabi-v7a-android-25
+jdk: oraclejdk8
+os:
+  - linux
+
 script: ./gradlew build check
