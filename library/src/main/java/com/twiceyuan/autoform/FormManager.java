@@ -1,6 +1,5 @@
 package com.twiceyuan.autoform;
 
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import com.twiceyuan.autoform.annotations.FormField;
 import com.twiceyuan.autoform.provider.DynamicFormItem;
 import com.twiceyuan.autoform.provider.LayoutProvider;
 import com.twiceyuan.autoform.provider.Validator;
-import com.twiceyuan.autoform.util.FormInitHelper;
+import com.twiceyuan.autoform.util.FormEntityFactory;
 import com.twiceyuan.autoform.util.Instances;
 
 import java.lang.reflect.Field;
@@ -50,7 +49,7 @@ public class FormManager<T> {
         }
 
         List<FormItemEntity> entities = new ArrayList<>();
-        FormInitHelper initHelper = FormInitHelper.build(form);
+        FormEntityFactory initHelper = FormEntityFactory.build(form);
 
         // 获取注解了 FormField 的字段，传递到 FormFieldEntity 实体中
         for (Field field : formClass.getDeclaredFields()) {
@@ -70,6 +69,21 @@ public class FormManager<T> {
         resort(entities);
 
         return new FormManager<>(entities, formClass);
+    }
+
+    /**
+     * 根据实体构造一个 FormManager，相当于使用 class 构造后使用该实体数据做初始化
+     *
+     * @param t   提供 class 和初始化数据的 form 实体
+     * @param <T> form class
+     * @return manager 实例
+     */
+    public static <T> FormManager<T> build(T t) {
+        //noinspection unchecked
+        Class<T> formClass = (Class<T>) t.getClass();
+        FormManager<T> formManager = FormManager.build(formClass);
+        formManager.initData(t);
+        return formManager;
     }
 
     /**
@@ -325,34 +339,21 @@ public class FormManager<T> {
      *
      * @return 表单当前的输入结果
      */
-    public T getData() {
+    public T getData() throws NoSuchFieldException {
         T data = Instances.newInstance(mDataClass);
-        Field[] declaredFields = mDataClass.getDeclaredFields();
-        Map<String, Field> keyFieldMaps = new HashMap<>();
-
-        for (Field declaredField : declaredFields) {
-            FormField formField = declaredField.getAnnotation(FormField.class);
-            if (formField != null && !TextUtils.isEmpty(formField.key())) {
-                keyFieldMaps.put(formField.key(), declaredField);
-            } else {
-                keyFieldMaps.put(declaredField.getName(), declaredField);
-            }
-        }
-
         for (FormItemEntity formField : mFormItemEntities) {
-            Field field = keyFieldMaps.get(formField.key);
-            boolean accessible = field.isAccessible();
-            if (!accessible) {
-                field.setAccessible(true);
-            }
 
             try {
+                Field field = mDataClass.getDeclaredField(formField.fieldName);
+                boolean accessible = field.isAccessible();
+                if (!accessible) {
+                    field.setAccessible(true);
+                }
                 field.set(data, formField.result);
+                field.setAccessible(accessible);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-
-            field.setAccessible(accessible);
         }
         return data;
     }

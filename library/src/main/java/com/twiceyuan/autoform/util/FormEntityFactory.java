@@ -16,17 +16,17 @@ import java.lang.reflect.Field;
  * <p>
  * 反射相关工具方法
  */
-public class FormInitHelper {
+public class FormEntityFactory {
 
     private HintProvider mHintProvider;
 
     private Class<? extends LayoutProvider> mFormItemProviderClass;
 
-    private FormInitHelper() {
+    private FormEntityFactory() {
     }
 
-    public static FormInitHelper build(Form form) {
-        FormInitHelper helper = new FormInitHelper();
+    public static FormEntityFactory build(Form form) {
+        FormEntityFactory helper = new FormEntityFactory();
 
         helper.mHintProvider = Instances.getHintProvider(form.hintProvider());
         helper.mFormItemProviderClass = form.layout();
@@ -38,11 +38,11 @@ public class FormInitHelper {
 
         FormItemEntity entity = new FormItemEntity();
 
+        entity.fieldName = field.getName();
         entity.label = formField.label();
         entity.order = formField.order();
         entity.layout = Instances.newInstance(formField.layout());
         entity.validator = Instances.newInstance(formField.validator());
-        entity.fieldName = field.getName();
 
         if (TextUtils.isEmpty(formField.hint())) {
             entity.hint = mHintProvider.buildHint(formField.label());
