@@ -151,7 +151,7 @@ public class FormManager<T> {
      * @param data 数据实体
      * @return manager 实例
      */
-    public FormManager<T> initData(T data) {
+    public <Data extends T> FormManager<T> initData(Data data) {
         for (FormItemEntity entity : mFormItemEntities) {
             try {
                 entity.result = mDataClass.getField(entity.fieldName).get(data);
@@ -232,15 +232,15 @@ public class FormManager<T> {
      * 根据 key 查找一个校验器
      *
      * @param key 字段的 key
-     * @param <T> 校验器的类型，可以由前置定义决定
+     * @param <V> 校验器的类型，可以由前置定义决定
      * @return 对应的校验器
      */
     @SuppressWarnings("unused")
-    public <T extends Validator> T findValidatorByKey(String key) {
+    public <V extends Validator> V findValidatorByKey(String key) {
         for (FormItemEntity entity : mFormItemEntities) {
             if (entity.key.equals(key)) {
                 //noinspection unchecked
-                return (T) entity.validator;
+                return (V) entity.validator;
             }
         }
         return null;
