@@ -22,7 +22,7 @@ public class PhoneValidator implements Validator<PhoneLayoutProvider> {
     }
 
     @Override
-    public boolean validate(Object result) {
-        return result instanceof String && ((String) result).length() == 11;
+    public void validate(Object result, ValidateCallback callback) {
+        callback.handleResult(result instanceof String && ((String) result).length() == 11);
     }
 }

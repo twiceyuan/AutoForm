@@ -20,8 +20,15 @@ public interface Validator<ItemProvider extends LayoutProvider> {
     /**
      * 校验方法
      *
-     * @param result 供校验的结果
-     * @return 是否校验成功
+     * @param result   供校验的结果
+     * @param callback 校验结果
      */
-    boolean validate(Object result);
+    void validate(Object result, ValidateCallback callback);
+
+    /**
+     * 校验结果回调
+     */
+    interface ValidateCallback {
+        void handleResult(boolean result);
+    }
 }

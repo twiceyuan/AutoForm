@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FrameLayout     mForm;
+    private FrameLayout     mFormContainer;
     private AppCompatButton mBtnSubmit;
 
     @Override
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         final FormManager<DemoForm> formManager = FormManager
                 .build(DemoForm.class)
                 .initData(form)
-                .inject(mForm, true);
+                .inject(mFormContainer);
 
         appendSelectorLogic(formManager);
 
@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public boolean validate(Object result) {
-                return selector.getSpSelector().getSelectedItemPosition() != 0;
+            public void validate(Object result, ValidateCallback callback) {
+                callback.handleResult(selector.getSpSelector().getSelectedItemPosition() != 0);
             }
         };
     }
@@ -105,22 +105,25 @@ public class MainActivity extends AppCompatActivity {
         categoriesCallback.call(categories);
     }
 
-    private void mockSubmit(FormManager manager) {
-        if (!manager.validate()) {
-            return;
-        }
+    private void mockSubmit(final FormManager manager) {
+        manager.validate(new Validator.ValidateCallback() {
+            @Override
+            public void handleResult(boolean validateResult) {
+                if (validateResult) {
+                    Map result = manager.getResult();
 
-        Map result = manager.getResult();
-
-        new AlertDialog.Builder(MainActivity.this)
-                .setMessage(String.valueOf(result))
-                .setPositiveButton("确定", null)
-                .show();
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setMessage(String.valueOf(result))
+                            .setPositiveButton("确定", null)
+                            .show();
+                }
+            }
+        });
     }
 
     private void initView() {
-        mForm = (FrameLayout) findViewById(R.id.form);
-        mBtnSubmit = (AppCompatButton) findViewById(R.id.btn_submit);
+        mFormContainer = findViewById(R.id.form);
+        mBtnSubmit = findViewById(R.id.btn_submit);
     }
 
     interface Callback<T> {

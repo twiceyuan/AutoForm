@@ -49,7 +49,7 @@ public class TextAreaLayoutProvider implements TextItemProvider {
 
     @Override
     public void initView(View view) {
-        mEtContent = (EditText) view.findViewById(R.id.et_content);
+        mEtContent = view.findViewById(R.id.et_content);
     }
 
     @Override

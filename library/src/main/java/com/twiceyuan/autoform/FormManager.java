@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -290,39 +291,55 @@ public class FormManager<T> {
      *
      * @return 校验是否成功
      */
-    public boolean validate() {
-        return validateItems(mFormItemEntities);
+    public void validate(Validator.ValidateCallback callback) {
+        validateItems(mFormItemEntities, callback);
     }
 
     /**
      * 内部校验功能
      *
      * @param entities 需要校验的单元
-     * @return 校验是否成功
+     * @param callback 校验结果回调
      */
-    private boolean validateItems(List<FormItemEntity> entities) {
-        for (FormItemEntity formField : entities) {
-            Validator validator = formField.validator;
-            if (!validator.validate(formField.result)) {
-                if (formField.layout != null) {
-                    try {
-                        // 这里会有类型不匹配的情况，原因是使用了自定义的 layoutProvider 却没有适配对应的检查器
-                        //noinspection unchecked
-                        validator.onValidateFailed(formField, formField.layout);
-                    } catch (Exception ignored) {
-                        Log.e(TAG, String.format("Validator type does not match: validator is %s, but layoutProvider is %s",
-                                validator.getClass().getName(),
-                                formField.layout.getClass().getName()));
+    private void validateItems(List<FormItemEntity> entities, Validator.ValidateCallback callback) {
+        Iterator<FormItemEntity> iterator = entities.iterator();
+        validateItem(iterator, callback);
+    }
+
+    private void validateItem(final Iterator<FormItemEntity> iterator, final Validator.ValidateCallback callback) {
+        if (iterator.hasNext()) {
+            final FormItemEntity entity = iterator.next();
+            final Validator validator = entity.validator;
+            validator.validate(entity.result, new Validator.ValidateCallback() {
+                @Override
+                public void handleResult(boolean result) {
+                    if (entity.layout == null) {
+                        callback.handleResult(false);
+                        return;
+                    }
+
+                    if (result) {
+                        validateItem(iterator, callback);
+                    } else {
+                        try {
+                            //noinspection unchecked
+                            validator.onValidateFailed(entity, entity.layout);
+                        } catch (Exception e) {
+                            Log.e(TAG, String.format("Validator type does not match: validator is %s, but layoutProvider is %s",
+                                    validator.getClass().getName(),
+                                    entity.layout.getClass().getName()));
+                        }
+                        callback.handleResult(false);
                     }
                 }
-                return false;
-            }
+            });
+        } else {
+            callback.handleResult(true);
         }
-        return true;
     }
 
     /**
-     * 获取所有输出结果，如果需要校验，请先调用 {@link this#validate()} 方法进行校验再获取
+     * 获取所有输出结果，如果需要校验，请先调用 {@link this#validate(Validator.ValidateCallback)} ()} 方法进行校验再获取
      *
      * @return 表单当前的输入结果
      */
@@ -335,7 +352,7 @@ public class FormManager<T> {
     }
 
     /**
-     * 获取所有输出结果，如果需要校验，请先调用 {@link this#validate()} 方法进行校验再获取
+     * 获取所有输出结果，如果需要校验，请先调用 {@link this#validate(Validator.ValidateCallback)} ()} 方法进行校验再获取
      *
      * @return 表单当前的输入结果
      */

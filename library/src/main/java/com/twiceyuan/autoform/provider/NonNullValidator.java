@@ -20,11 +20,11 @@ public class NonNullValidator implements Validator<TextItemProvider> {
     }
 
     @Override
-    public boolean validate(Object result) {
+    public void validate(Object result, ValidateCallback callback) {
         if (result instanceof String) {
-            return !TextUtils.isEmpty((CharSequence) result);
+            callback.handleResult(!TextUtils.isEmpty((CharSequence) result));
         } else {
-            return result != null;
+            callback.handleResult(result != null);
         }
     }
 }

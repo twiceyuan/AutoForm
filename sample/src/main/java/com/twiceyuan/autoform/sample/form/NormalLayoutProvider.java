@@ -31,7 +31,7 @@ public class NormalLayoutProvider implements TextItemProvider {
         mTvLabel.setText(field.label);
 
         // 初始化默认数据
-        if (field.result != null && field.result instanceof String) {
+        if (field.result instanceof String) {
             mEtContent.setText((String) field.result);
         }
     }

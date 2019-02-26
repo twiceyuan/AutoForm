@@ -79,8 +79,8 @@ public class SelectorLayoutProvider implements LayoutProvider {
 
     @Override
     public void initView(View view) {
-        mTvLabel = (TextView) view.findViewById(R.id.tv_label);
-        mSpSelector = (Spinner) view.findViewById(R.id.sp_selector);
+        mTvLabel = view.findViewById(R.id.tv_label);
+        mSpSelector = view.findViewById(R.id.sp_selector);
     }
 
     public Spinner getSpSelector() {

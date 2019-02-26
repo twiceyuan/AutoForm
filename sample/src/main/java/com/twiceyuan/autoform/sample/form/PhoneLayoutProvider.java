@@ -52,8 +52,8 @@ public class PhoneLayoutProvider implements LayoutProvider {
 
     @Override
     public void initView(View view) {
-        mEtPhone = (EditText) view.findViewById(R.id.et_phone);
-        mTvLabel = (TextView) view.findViewById(R.id.tv_label);
+        mEtPhone = view.findViewById(R.id.et_phone);
+        mTvLabel = view.findViewById(R.id.tv_label);
     }
 
     public EditText getEtPhone() {

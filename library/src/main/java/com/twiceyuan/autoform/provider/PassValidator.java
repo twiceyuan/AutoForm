@@ -16,7 +16,7 @@ public class PassValidator implements Validator<LayoutProvider> {
     }
 
     @Override
-    public boolean validate(Object result) {
-        return true;
+    public void validate(Object result, ValidateCallback callback) {
+        callback.handleResult(true);
     }
 }
